@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+
+        <title>征服</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta http-equiv="pragma" content="no-cache" />
+        <meta http-equiv="Expires" content="0" />
+        <link rel="stylesheet" type="text/css" media="screen" href="index.css">
+        <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon" href="icons/touch-icon-iphone-60x60.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="icons/touch-icon-ipad-76x76.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="icons/touch-icon-iphone-retina-120x120.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="icons/touch-icon-ipad-retina-152x152.png">
+        <link rel="manifest" href="manifest.json">
+    </head>
+    <body style="background-color: #222222">
+        <br>
+        <div>
+
+            UserID: <input id="user_id" type="text" name="user" value="wwh" style="width:100px"/>
+            <button id = "btn_start_on" onclick= "start_on()">启动游戏</button>
+
+        </div>
+        <hr>
+
+    <!-- Canvas placeholder -->
+        <div id="screen"></div>
+
+        <!-- melonJS Library -->
+        <!-- build:js js/app.min.js -->
+        <script type="text/javascript" src="lib/melonjs.js"></script>
+<!--        <script type="text/javascript" src="lib/melonjs.min.js"></script>-->
+        <script type="text/javascript" src="lib/socket.io.js"></script>
+
+
+        <!-- Plugin(s) -->
+<!--        <script type="text/javascript" src="lib/plugins/debug/debugPanel.js"></script>-->
+
+        <!-- Game Scripts -->
+        <script type="text/javascript" src="js/game.js"></script>
+        <!-- <script type="text/javascript" src="build/js/resources.js"></script> -->
+        <script type="text/javascript" src="js/resources.js"></script>
+
+
+        <script type="text/javascript" src="js/entities/entities.js"></script>
+        <script type="text/javascript" src="js/entities/Territory.js"></script>
+        <script type="text/javascript" src="js/entities/World.js"></script>
+        <script type="text/javascript" src="js/entities/TSelect.js"></script>
+        <script type="text/javascript" src="js/entities/Overlord.js"></script>
+        <script type="text/javascript" src="js/entities/GameManager.js"></script>
+        <script type="text/javascript" src="js/entities/VFX_Layer.js"></script>
+
+
+        <script type="text/javascript" src="js/class/Net.js"></script>
+        <script type="text/javascript" src="js/class/DataCache.js"></script>
+
+
+
+        <script type="text/javascript" src="js/entities/HUD.js"></script>
+        <script type="text/javascript" src="js/entities/UIContainer.js"></script>
+
+
+
+        <script type="text/javascript" src="js/screens/IntroScreen.js"></script>
+        <script type="text/javascript" src="js/screens/GameMenuScreen.js"></script>
+        <script type="text/javascript" src="js/screens/ReadyScreen.js"></script>
+        <script type="text/javascript" src="js/screens/PlayScreen.js"></script>
+        <script type="text/javascript" src="js/screens/GameOverScreen.js"></script>
+
+        <!-- /build -->
+
+        <!-- Bootstrap -->
+        <script type="text/javascript">
+            let windowsReady = false;
+
+            me.device.onReady(function onReady() {
+                windowsReady = true;
+            });
+
+            function start_on() {
+                if (windowsReady) {
+                    let uid = document.getElementById('user_id').value;
+                    document.getElementById('btn_start_on').disabled = true;
+                    document.getElementById('user_id').disabled = true;
+                    game.onload(uid);
+                }
+            }
+            //下载文件
+            function downFile(blob, fileName) {
+                if (window.navigator.msSaveOrOpenBlob) {
+                    navigator.msSaveBlob(blob, fileName);
+                } else {
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = fileName;
+                    link.click();
+                    window.URL.revokeObjectURL(link.href);
+                }
+            }
+        </script>
+
+    </body>
+</html>
